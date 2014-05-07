@@ -4,7 +4,7 @@ Theme collections for zenpage
 
 ## Install
 
-```
+```bash
 mkdir ~/.zenpage && cd ~/.zenpage
 git clone https://github.com/ddliu/zenpage-themes.git themes
 ```
@@ -24,7 +24,7 @@ theme_name/
 
 ### Layout
 
-`layout.html` is the layout template of the theme which is written in Mustache.
+layout.html is the layout template of the theme which is written in Mustache.
 
 ### Template Variables
 
@@ -38,7 +38,7 @@ theme_name/
 
 theme.json contains information of the theme, here is an example:
 
-```
+```json
 {
     "name": "simple",
     "description": "Simple theme",
@@ -53,7 +53,7 @@ theme.json contains information of the theme, here is an example:
 
 ## Build
 
-```
+```bash
 npm install -g grunt-cli
 bower install
 npm install
