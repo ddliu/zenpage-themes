@@ -1,5 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  var path = require('path');
 
   // Project configuration.
   grunt.initConfig({
@@ -23,6 +24,23 @@ module.exports = function(grunt) {
         ext: ".css",
       }
     },
+    shell: {
+      // gen example pages
+      genPage: {
+        command: function() {
+          return getThemes().map(function(v) {
+            return 'zenpage  --theme=' + v + ' example.md _build/' + v + '/example.html';
+          }).join(' && ');
+        }
+      },
+      genScreenshot: {
+        command: function() {
+          return getThemes().map(function(v) {
+            return 'phantomjs rasterize.js _build/' + v + '/example.html ' + v + '/snapshot.png 768px 0.8';
+          }).join(' && ');
+        }
+      },
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
@@ -41,27 +59,23 @@ module.exports = function(grunt) {
         src: '<%= concat.dist.dest %>',
         dest: 'dist/<%= pkg.name %>.min.js'
       }
-    },
-    watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'nodeunit']
-      }
     }
   });
+
+  function getThemes() {
+    return grunt.file.expand("*/theme.json").map(function(v) {
+      return path.basename(path.dirname(v));
+    });
+  }
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-shell');
 
 
   // Default task.
-  grunt.registerTask('default', ['less']);
+  grunt.registerTask('default', ['less', 'shell']);
 
 };
