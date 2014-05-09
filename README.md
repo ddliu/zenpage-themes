@@ -54,8 +54,10 @@ theme.json contains information of the theme, here is an example:
 ## Build
 
 ```bash
-npm install -g grunt-cli
+sudo apt-get install phantomjs # generate screenshot
+go get github.com/ddliu/go-zenpage/zenpage # not ready
+npm install -g gulp
 bower install
 npm install
-grunt
+gulp
 ```

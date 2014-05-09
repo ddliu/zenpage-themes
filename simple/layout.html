@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{meta.title}} by {{meta.author}}</title>
+    <title>{{meta.title}}{{#meta.author}} by {{.}}{{/meta.author}}</title>
     <link rel="stylesheet" href="{{url.theme}}theme.css">
 </head>
 <body>
